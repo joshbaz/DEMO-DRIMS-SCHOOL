@@ -51,9 +51,9 @@ const StudentManagementTable = ({ students, pageSize, setPageSize }) => {
       )
     }),
     columnHelper.accessor('category', {
-      header: 'Category',
+      header: 'Program',
       cell: ({ row }) => (
-        <span className="bg-[#FDD388] px-2 py-1 rounded-md capitalize">
+        <span className="bg-[#FDD388] flex flex-row justify-center items-center gap-1 px-2 py-1 rounded-md capitalize">
           {row.original?.programLevel}
         </span>
       )
@@ -73,7 +73,7 @@ const StudentManagementTable = ({ students, pageSize, setPageSize }) => {
               borderRadius: '0.375rem',
               display: 'inline-block'
             }}
-            className="capitalize"
+            className="capitalize whitespace-normal"
           >
             {currentStatus?.name?.toLowerCase() || 'Unknown'}
           </span>
@@ -120,7 +120,7 @@ const StudentManagementTable = ({ students, pageSize, setPageSize }) => {
       header: '',
       cell: ({ row }) => (
         <button
-          className="w-[47px] h-6 rounded border border-[#E5E7EB] text-sm font-[Inter-Regular] text-[#111827] shadow-[0px_1px_2px_0px_#0000000D] hover:bg-gray-50"
+          className="w-max px-2 h-6 rounded border border-[#E5E7EB] text-sm font-inter font-normal text-[#111827] shadow-[0px_1px_2px_0px_#0000000D] hover:bg-gray-50"
           onClick={() => handleOpenProfile(row.original.id)}
         >
           Open
@@ -177,7 +177,7 @@ const StudentManagementTable = ({ students, pageSize, setPageSize }) => {
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-4 py-3 text-left text-[#111827] font-[Inter-Medium] text-sm"
+                    className="px-4 py-3 text-left text-[#111827] font-inter font-semibold text-[14px] leading-[20px] "
                   >
                     {flexRender(header.column.columnDef.header, header.getContext())}
                   </th>
@@ -191,7 +191,7 @@ const StudentManagementTable = ({ students, pageSize, setPageSize }) => {
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
-                    className="px-4 py-2 whitespace-nowrap text-[#111827] font-[Inter-Regular] text-sm"
+                    className="px-4 py-2 whitespace-nowrap text-[#111827] font-inter font-normal text-[14px] leading-[20px]"
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>

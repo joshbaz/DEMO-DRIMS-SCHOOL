@@ -21,32 +21,32 @@ import { useGetDashboardStats } from "@/store/tanstackStore/services/queries";
 const InfoCardData = [
   {
     title: "All Students",
-    stats: "103,245",
+    stats: "0",
     icon: false,
     key: "totalStudents"
   },
   {
     title: "Ongoing Students",
-    stats: "17",
-   
+    stats: "0",
+
     key: "ongoingStudents"
   },
   {
     title: "Recently Enrolled",
-    stats: "52",
+    stats: "0",
     key: "recentlyEnrolled"
   },
- 
+
   {
     title: "Normal Progress",
-    stats: "31",
+    stats: "0",
     icon: true,
     tooltip: "Students currently in normal progress",
     key: "normalProgress"
   },
   {
     title: "Under Examination",
-    stats: "12",
+    stats: "0",
     icon: true,
     tooltip: "Students currently under examination",
     key: "underExamination"
@@ -89,39 +89,39 @@ const Dashboard = () => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [dashboardStats, setDashboardStats] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString('en-UG', { 
-    year: 'numeric', 
-    month: 'numeric', 
-    day: 'numeric', 
-    hour: '2-digit', 
-    minute: '2-digit', 
-    second: '2-digit' 
+  const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString('en-UG', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
   }));
 
   // Fetch dashboard statistics
-    // Use the pre-defined query hook from services/queries.ts
-    const { data: statsData, isError, isLoading: queryLoading } = useGetDashboardStats();
-    
-    // Update state when data changes
-    useEffect(() => {
-      if (statsData) {
-        setDashboardStats(statsData);
-        setIsLoading(false);
-      } else if (isError) {
-        toast.error("Failed to load dashboard statistics");
-        setIsLoading(false);
-        // Use actual data as fallback
-        setDashboardStats({
-          totalStudents: "0",
-          recentlyEnrolled: "0",
-          workshop: "0",
-          normalProgress: "0",
-          underExamination: "0"
-        });
-      }
-    }, [statsData, isError]);
+  // Use the pre-defined query hook from services/queries.ts
+  const { data: statsData, isError, isLoading: queryLoading } = useGetDashboardStats();
 
-  
+  // Update state when data changes
+  useEffect(() => {
+    if (statsData) {
+      setDashboardStats(statsData);
+      setIsLoading(false);
+    } else if (isError) {
+      toast.error("Failed to load dashboard statistics");
+      setIsLoading(false);
+      // Use actual data as fallback
+      setDashboardStats({
+        totalStudents: "0",
+        recentlyEnrolled: "0",
+        workshop: "0",
+        normalProgress: "0",
+        underExamination: "0"
+      });
+    }
+  }, [statsData, isError]);
+
+
 
   // Update card data with fetched statistics
   const updatedCardData = InfoCardData.map(card => ({
@@ -180,32 +180,32 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
-        
+
         {/** Charts Start */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 px-6 mb-6 h-max">
           {/** Chart 1 - line chart */}
           {/* <div className="rounded-lg shadow-sm col-span-3"> */}
-            {/* <h3 className="text-md font-medium text-gray-700 mb-4">Student Progress Trends</h3> */}
-            {isLoading ? (
-              <div className="animate-pulse h-64 bg-gray-200 rounded col-span-3"></div>
-            ) : (
-              <div className="rounded-lg shadow-sm col-span-3">
-               <DLineChart data={chartData} />
-              </div>
-              
-            )}
+          {/* <h3 className="text-md font-medium text-gray-700 mb-4">Student Progress Trends</h3> */}
+          {isLoading ? (
+            <div className="animate-pulse h-64 bg-gray-200 rounded col-span-3"></div>
+          ) : (
+            <div className="rounded-lg shadow-sm col-span-3">
+              <DLineChart data={chartData} />
+            </div>
+
+          )}
           {/* </div> */}
           {/** Chart 2 - pie chart */}
           {/* <div className=" rounded-lg shadow-sm col-span-2"> */}
-            {/* <h3 className="text-md relative font-medium text-gray-700 mb-4">Student Status Distribution</h3> */}
-            {isLoading ? (
-              <div className="animate-pulse h-64 bg-gray-200 rounded col-span-2"></div>
-            ) : (
-              <div className="rounded-lg shadow-sm col-span-2">
-                <DPieChart ongoingStudents={dashboardStats.ongoingStudents}  />
-              </div>
-            )}
-          </div>
+          {/* <h3 className="text-md relative font-medium text-gray-700 mb-4">Student Status Distribution</h3> */}
+          {isLoading ? (
+            <div className="animate-pulse h-64 bg-gray-200 rounded col-span-2"></div>
+          ) : (
+            <div className="rounded-lg shadow-sm col-span-2">
+              <DPieChart ongoingStudents={dashboardStats.ongoingStudents} />
+            </div>
+          )}
+        </div>
         {/* </div> */}
 
         {/** Tables and Notifications */}

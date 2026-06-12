@@ -21,6 +21,7 @@ export function useGetFacultyProfile() {
     staleTime: Infinity, // 1 minute
     refetchInterval: false,
     networkMode: 'online',
+    enabled: !!localStorage.getItem('umi_auth_token'),
   });
 }
 

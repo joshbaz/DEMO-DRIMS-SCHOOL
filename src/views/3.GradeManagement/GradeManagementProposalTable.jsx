@@ -42,7 +42,7 @@ const GradeManagementProposalTable = ({
   const columnHelper = createColumnHelper();
   const [globalFilter, setGlobalFilter] = useState("");
 
-  console.log(data)
+
 
   const columns = useMemo(
     () => [
@@ -79,28 +79,28 @@ const GradeManagementProposalTable = ({
           const color = currentStatus?.definition?.color || '#000';
           return (
             <span
-            style={{
-              color: color,
-              backgroundColor: `${color}18`,
-              border: `1px solid ${color}`,
-              padding: '0.25rem 0.5rem',
-              borderRadius: '0.375rem',
-              display: 'inline-block'
-            }}
-            className="capitalize text-xs font-[Inter-Regular]"
-          >
-            {currentStatus?.definition?.name?.toLowerCase() || 'Unknown'}
-          </span>
+              style={{
+                color: color,
+                backgroundColor: `${color}18`,
+                border: `1px solid ${color}`,
+                padding: '0.25rem 0.5rem',
+                borderRadius: '0.375rem',
+                display: 'inline-block'
+              }}
+              className="capitalize text-xs font-[Inter-Regular]"
+            >
+              {currentStatus?.definition?.name?.toLowerCase() || 'Unknown'}
+            </span>
           );
         },
       }),
-     
+
       columnHelper.accessor("defenseGrade", {
         header: "Category",
         cell: (info) => {
           const currentDefense = info.row.original.defenses?.find(d => d.isCurrent);
           let status = 'NOT GRADED';
-          
+
           if (currentDefense && currentDefense.verdict) {
             status = currentDefense.verdict.includes('PASS') ? 'PASSED' : 'FAILED';
           }
@@ -126,7 +126,7 @@ const GradeManagementProposalTable = ({
         cell: (info) => (
           <button
             onClick={() => navigate(`/grades/proposal/${info.row.original.id}`)}
-             className="rounded border text-gray-700 border-semantic-bg-border shadow-sm py-1 px-2 hover:bg-gray-50 font-[Inter-Medium] text-sm"
+            className="rounded border text-gray-700 border-semantic-bg-border shadow-sm py-1 px-2 hover:bg-gray-50 font-[Inter-Medium] text-sm"
           >
             Open
           </button>
@@ -208,9 +208,9 @@ const GradeManagementProposalTable = ({
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                   </th>
                 ))}
               </tr>
@@ -218,8 +218,8 @@ const GradeManagementProposalTable = ({
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {table.getRowModel().rows.map((row) => (
-              <tr 
-                key={row.id} 
+              <tr
+                key={row.id}
                 className={!row.original.isCurrent ? "bg-gray-50" : ""}
               >
                 {row.getVisibleCells().map((cell) => (
@@ -267,11 +267,10 @@ const GradeManagementProposalTable = ({
             (pageNumber) => (
               <button
                 key={pageNumber}
-                className={`w-8 h-8 rounded text-sm ${
-                  pageNumber === table.getState().pagination.pageIndex + 1
+                className={`w-8 h-8 rounded text-sm ${pageNumber === table.getState().pagination.pageIndex + 1
                     ? "bg-blue-50 text-blue-600 font-[Roboto-Medium]"
                     : "text-gray-500"
-                }`}
+                  }`}
                 onClick={() => table.setPageIndex(pageNumber - 1)}
               >
                 {pageNumber}

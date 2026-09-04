@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 import { VitePWA } from 'vite-plugin-pwa'
+import pkg from './package.json'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,7 +11,11 @@ export default defineConfig({
     react(), 
     tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
+      injectRegister: false,
+      registerOptions: {
+        updateViaCache: 'none'
+      },
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'safari-pinned-tab.svg'],
       manifest: {
         name: 'UMI School Portal',
@@ -71,6 +76,12 @@ export default defineConfig({
       }
     })
   ],
+  define: {
+    __APP_VERSION__: JSON.stringify({
+      version: pkg.version,
+      build: new Date().toISOString()
+    })
+  },
   assetsInclude: ['**/*.docx'],
   resolve: {
     alias: {

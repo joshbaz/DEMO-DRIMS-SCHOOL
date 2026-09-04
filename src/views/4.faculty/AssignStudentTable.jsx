@@ -37,7 +37,7 @@ const AssignStudentTable = ({
   };
 
   const handleOpenProfile = (studentId) => {
-    console.log("Navigating to student:", studentId);
+
     navigate(`/students/profile/${studentId}`);
   };
 
@@ -113,7 +113,7 @@ const AssignStudentTable = ({
                 ?.color
               }18` || "#00000018",
             border: `1px solid ${row.original.statuses?.find((s) => s.isCurrent)?.definition
-                ?.color || "#000"
+              ?.color || "#000"
               }`,
             padding: "0.25rem 0.5rem",
             borderRadius: "0.375rem",
@@ -135,8 +135,8 @@ const AssignStudentTable = ({
         return (
           <button
             className={`w-max px-4 py-1 rounded border text-sm font-inter font-semibold shadow-[0px_1px_2px_0px_#0000000D] hover:bg-gray-50 ${isAssigned
-                ? "border-red-500 text-red-500 hover:bg-red-50"
-                : "border-[#E5E7EB] text-[#111827]"
+              ? "border-red-500 text-red-500 hover:bg-red-50"
+              : "border-[#E5E7EB] text-[#111827]"
               }`}
             onClick={() => onAssignToggle(row.original)}
           >
@@ -230,8 +230,8 @@ const AssignStudentTable = ({
             <button
               key={pageNumber}
               className={`w-8 h-8 rounded text-sm ${pageNumber === table.getState().pagination.pageIndex + 1
-                  ? 'bg-blue-50 text-blue-600 font-medium'
-                  : 'text-gray-500'
+                ? 'bg-blue-50 text-blue-600 font-medium'
+                : 'text-gray-500'
                 }`}
               onClick={() => table.setPageIndex(pageNumber - 1)}
             >

@@ -54,30 +54,30 @@ const getStatusColor = (status) => {
   }
 };
 
-const GradeProposalDefenseTable = ({ 
-  panelists, 
-  
-  refetchProposal, 
-  onUpdateClick, 
+const GradeProposalDefenseTable = ({
+  panelists,
+
+  refetchProposal,
+  onUpdateClick,
   onViewClick,
   isProposalActive
 }) => {
   const { id: proposalId } = useParams();
   const navigate = useNavigate();
-  console.log(proposalId);
+
   const [isVerdictDialogOpen, setIsVerdictDialogOpen] = useState(false);
   const [selectedDefenseId, setSelectedDefenseId] = useState(null);
   const [verdict, setVerdict] = useState('');
   const [comments, setComments] = useState('');
-  
-  
+
+
   // Fetch defense history for the proposal
   const { data: defenseData, isLoading: isDefenseLoading } = useGetProposalDefenses();
-  
+
   const queryClient = useQueryClient();
 
   // Filter defense history for the current proposal - memoized to avoid recalculation
-  const defenseHistory = useMemo(() => 
+  const defenseHistory = useMemo(() =>
     defenseData?.proposalDefenses?.filter(defense => defense.proposalId === proposalId) || [],
     [defenseData?.proposalDefenses, proposalId]
   );
@@ -92,7 +92,7 @@ const GradeProposalDefenseTable = ({
       queryClient.resetQueries(['proposal', proposalId]);
       queryClient.resetQueries(['proposal-defenses']);
       setIsVerdictDialogOpen(false);
-    //   refetchProposal();
+      //   refetchProposal();
     },
     onError: (error) => {
       toast.error(`Failed to record verdict: ${error.message}`);
@@ -219,16 +219,16 @@ const GradeProposalDefenseTable = ({
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th 
+                  <th
                     key={header.id}
                     className="px-4 py-2 text-left text-sm font-[Inter-Regular] text-gray-900"
                   >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                   </th>
                 ))}
               </tr>
@@ -260,7 +260,7 @@ const GradeProposalDefenseTable = ({
             )}
           </tbody>
         </table>
-        
+
         {/* Pagination Controls */}
         {defenseHistory?.length > 0 && (
           <div className="flex items-center justify-between px-4 py-3 border-t">
@@ -312,7 +312,7 @@ const GradeProposalDefenseTable = ({
                 ))}
               </select>
             </div>
-            
+
             <div className="grid gap-2">
               <Label>Comments</Label>
               <textarea

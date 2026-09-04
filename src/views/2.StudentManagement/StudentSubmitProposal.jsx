@@ -23,7 +23,7 @@ const validationSchema = Yup.object().shape({
 
 const SubmitStudentProposal = () => {
   const { id } = useParams();
-let navigate = useNavigate();
+  let navigate = useNavigate();
   const submitProposalMutation = useMutation({
     mutationFn: (values) => submitProposalService(id, values),
     onSuccess: (data) => {
@@ -39,7 +39,7 @@ let navigate = useNavigate();
       queryClient.resetQueries({ queryKey: ['student', id] });
     },
     onError: (error) => {
-      toast.error( error?.message, {
+      toast.error(error?.message, {
         duration: Infinity,
         action: {
           label: 'Close',
@@ -61,7 +61,7 @@ let navigate = useNavigate();
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       await submitProposalMutation.mutateAsync(values);
-      console.log('Proposal submitted successfully');
+
       navigate(`/students/profile/${id}`);
     } catch (error) {
       console.error('Error submitting proposal:', error);
@@ -73,7 +73,7 @@ let navigate = useNavigate();
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Submit Research Proposal</h1>
-      
+
       <div className="bg-white rounded-lg p-6 shadow-sm">
         <Formik
           initialValues={initialValues}
@@ -86,7 +86,7 @@ let navigate = useNavigate();
             formData.append('researchArea', values.researchArea === 'Other' ? values.otherResearchArea : values.researchArea);
             // formData.append('proposalFile', values.file);
             submitProposalMutation.mutate(formData);
-            // console.log('Proposal submitted successfully')
+
           }}
         >
           {({ errors, touched, setFieldValue, isSubmitting, values }) => (
@@ -213,10 +213,10 @@ let navigate = useNavigate();
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  disabled={ submitProposalMutation.isPending}
+                  disabled={submitProposalMutation.isPending}
                   className="px-4 py-2 bg-[#23388F] text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
                 >
-                  { submitProposalMutation.isPending ? 'Submitting...' : 'Submit Proposal'}
+                  {submitProposalMutation.isPending ? 'Submitting...' : 'Submit Proposal'}
                 </button>
               </div>
             </Form>

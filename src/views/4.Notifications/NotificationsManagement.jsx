@@ -60,8 +60,8 @@ const NotificationsManagement = () => {
   // Fetch notifications data from API
   const { data, isLoading, error } = useGetNotifications();
 
-  console.log("data", data);
-  
+
+
   // Use the fetched data
   const notificationsData = data?.notifications || [];
 
@@ -77,11 +77,11 @@ const NotificationsManagement = () => {
         accessorKey: "title",
         header: "Title",
         cell: (info) => (
-          
-            <div className="max-w-xs whitespace-pre-wrap break-words text-xs font-[Inter-Medium]">
-              {info.getValue()}
-            </div>
-       
+
+          <div className="max-w-xs whitespace-pre-wrap break-words text-xs font-[Inter-Medium]">
+            {info.getValue()}
+          </div>
+
         ),
       },
       {
@@ -107,8 +107,8 @@ const NotificationsManagement = () => {
           </div>
         ),
       },
-  
- 
+
+
       {
         accessorKey: "recipientName",
         header: "Recipient",
@@ -123,9 +123,9 @@ const NotificationsManagement = () => {
           </div>
         ),
       },
-      
-     
-      
+
+
+
       {
         accessorKey: "statusType",
         header: "Status",
@@ -156,7 +156,7 @@ const NotificationsManagement = () => {
           );
         },
       },
-   
+
       {
         accessorKey: "actions",
         header: " ",
@@ -179,7 +179,7 @@ const NotificationsManagement = () => {
   // Filter data based on search query
   const filteredNotificationsData = useMemo(() => {
     let filtered = notificationsData;
-    
+
     if (searchQuery) {
       filtered = filtered.filter((item) =>
         item.type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -187,7 +187,7 @@ const NotificationsManagement = () => {
         item.remarks?.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
-    
+
     return filtered;
   }, [searchQuery, notificationsData]);
 
@@ -216,10 +216,10 @@ const NotificationsManagement = () => {
       {/* Global Search */}
       <div className="flex px-6 justify-between items-center border-b border-gray-300 h-[89px]">
         <p className="text-sm font-[Inter-SemiBold]  text-gray-900">School Portal</p>
-      <p className="text-sm font-[Inter-Medium]  text-gray-600">Digital Research Information Management System</p>
+        <p className="text-sm font-[Inter-Medium]  text-gray-600">Digital Research Information Management System</p>
       </div>
 
-    
+
 
       {/* Header */}
       <div className="flex justify-between items-center px-6 py-4">
@@ -352,9 +352,9 @@ const NotificationsManagement = () => {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </th>
                       ))}
                     </tr>
@@ -414,11 +414,10 @@ const NotificationsManagement = () => {
               ).map((pageNumber) => (
                 <button
                   key={pageNumber}
-                  className={`w-8 h-8 rounded text-sm ${
-                    pageNumber === table.getState().pagination.pageIndex + 1
+                  className={`w-8 h-8 rounded text-sm ${pageNumber === table.getState().pagination.pageIndex + 1
                       ? "bg-blue-50 text-blue-600 font-medium"
                       : "text-gray-500"
-                  }`}
+                    }`}
                   onClick={() => table.setPageIndex(pageNumber - 1)}
                 >
                   {pageNumber}

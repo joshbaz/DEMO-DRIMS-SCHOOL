@@ -7,8 +7,8 @@ import axios from 'axios'
 //export const socketUrl = "https://drimsapi.umi.ac.ug"
 //export const socketUrl = "localhost:5000"
 
-export const BASE_API_URL = "https://drimsapi.alero.digital/api/v1";
-export const socketUrl = "https://drimsapi.alero.digital"
+export const BASE_API_URL = "https://drims-sbx.site/api/v1";
+export const socketUrl = "https://drims-sbx.site"
 // export const socketUrl =
 //   process.env.NODE_ENV === "production"
 //     ? "drims.alero.digital:5000"

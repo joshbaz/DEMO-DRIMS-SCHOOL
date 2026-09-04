@@ -67,9 +67,7 @@ const SupportChatWidget = () => {
       const ticketData = {
         subject: 'Live Chat Request',
         message: 'Support ticket created.',
-        guestName: guestInfo.name || user?.name || '',
-        guestEmail: guestInfo.email || user?.email || '',
-        guestPhone: guestInfo.phone || user?.phone || '',
+        source: 'SCHOOL_PORTAL',
       };
 
       if (!token) {

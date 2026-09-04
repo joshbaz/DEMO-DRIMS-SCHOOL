@@ -5,11 +5,11 @@ import FormErrorHandler from '../../../components/FormErrorHandler/FormErrorHand
 import { useGetAllCampuses, useGetAllSchools, useGetAllDepartments } from '../../../store/tanstackStore/services/queries'
 
 const SupervisorProfessionalSummary = ({ handleNext, formRef, createSupervisorMutation }) => {
-    const [storedSchoolId, setStoredSchoolId] = useState('')
-     // Get all campuses and schools
+  const [storedSchoolId, setStoredSchoolId] = useState('')
+  // Get all campuses and schools
   const { data: campuses } = useGetAllCampuses()
   const { data: schools } = useGetAllSchools()
-  
+
 
   // Encryption/decryption functions
   const encryptData = (data) => {
@@ -37,7 +37,7 @@ const SupervisorProfessionalSummary = ({ handleNext, formRef, createSupervisorMu
     departmentId: storedData.departmentId || ''
   }
 
-  console.log(initialValues)
+
 
   const validationSchema = yup.object().shape({
     designation: yup.string().required('Designation is required'),
@@ -65,7 +65,7 @@ const SupervisorProfessionalSummary = ({ handleNext, formRef, createSupervisorMu
         // Encrypt data before storing
         const encryptedValues = encryptData(values)
         localStorage.setItem('supervisorProfessionalSummary', encryptedValues)
-         // Get and decrypt stored data from previous steps
+        // Get and decrypt stored data from previous steps
         const personalInfo = decryptData(localStorage.getItem('supervisorPersonalInfo') || '')
 
         // Combine all data
@@ -74,8 +74,8 @@ const SupervisorProfessionalSummary = ({ handleNext, formRef, createSupervisorMu
           ...values,
           password: generatePassword()
         }
-          // Call mutation to create supervisor
-      createSupervisorMutation.mutate(finalFormData);
+        // Call mutation to create supervisor
+        createSupervisorMutation.mutate(finalFormData);
       }}
     >
       {({ values, handleChange, errors, touched, setFieldValue }) => (
@@ -104,9 +104,8 @@ const SupervisorProfessionalSummary = ({ handleNext, formRef, createSupervisorMu
                   name="designation"
                   value={values.designation}
                   onChange={handleChange}
-                  className={`mt-1 block w-full rounded-md border ${
-                    errors.designation && touched.designation ? "border-red-500" : "border-gray-300"
-                  } p-2`}
+                  className={`mt-1 block w-full rounded-md border ${errors.designation && touched.designation ? "border-red-500" : "border-gray-300"
+                    } p-2`}
                 />
                 <FormErrorHandler
                   errors={errors?.designation}
@@ -128,9 +127,8 @@ const SupervisorProfessionalSummary = ({ handleNext, formRef, createSupervisorMu
                     setFieldValue('schoolId', '') // Reset school when campus changes
                     setFieldValue('departmentId', '') // Reset department when campus changes
                   }}
-                  className={`mt-1 block w-full rounded-md border ${
-                    errors.campusId && touched.campusId ? "border-red-500" : "border-gray-300"
-                  } p-2`}
+                  className={`mt-1 block w-full rounded-md border ${errors.campusId && touched.campusId ? "border-red-500" : "border-gray-300"
+                    } p-2`}
                 >
                   <option value="">Select campus</option>
                   {campuses?.campuses?.map((campus) => (
@@ -157,9 +155,8 @@ const SupervisorProfessionalSummary = ({ handleNext, formRef, createSupervisorMu
                     setStoredSchoolId(e.target.value)
                     setFieldValue('departmentId', '') // Reset department when school changes
                   }}
-                  className={`mt-1 block w-full rounded-md border ${
-                    errors.schoolId && touched.schoolId ? "border-red-500" : "border-gray-300"
-                  } p-2`}
+                  className={`mt-1 block w-full rounded-md border ${errors.schoolId && touched.schoolId ? "border-red-500" : "border-gray-300"
+                    } p-2`}
                   disabled={!values.campusId}
                 >
                   <option value="">Select school</option>

@@ -38,14 +38,14 @@ const StudentListModal = ({ isOpen, onClose, students, title }) => {
       <div className="bg-white rounded-lg p-6 w-[600px] max-h-[80vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-[Roboto-Medium]">{title}</h2>
-          <button 
+          <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700"
           >
             <iconify-icon icon="material-symbols:close" width="24" height="24"></iconify-icon>
           </button>
         </div>
-        
+
         <div className="divide-y">
           {students.map((student) => (
             <div key={student.id} className="py-3">
@@ -87,13 +87,13 @@ const SupervisorTasks = ({ supervisorData }) => {
     students: [],
     title: ""
   });
-  console.log(supervisorData);
+
 
   const { data: assignedStudentsData, isLoading } = useGetAssignedStudents(
     supervisorData?.supervisor?.id
   );
 
-  console.log("assignedStudentsData", assignedStudentsData);
+
   // Transform assigned students data
   const studentsData = useMemo(() => {
     if (!assignedStudentsData?.students) return [];
@@ -119,7 +119,7 @@ const SupervisorTasks = ({ supervisorData }) => {
       }
 
       const currentStatus = student.statuses.find(status => status.isCurrent);
-      
+
       // Find previous status with most recent endDate
       const previousStatus = student.statuses
         .filter(status => !status.isCurrent)
@@ -142,7 +142,7 @@ const SupervisorTasks = ({ supervisorData }) => {
 
   // Filter active students (not graduated)
   const activeStudents = useMemo(() => {
-    return studentsData.filter(student => 
+    return studentsData.filter(student =>
       student.status.toLowerCase() !== 'graduated'
     );
   }, [studentsData]);
@@ -217,7 +217,7 @@ const SupervisorTasks = ({ supervisorData }) => {
         id: "actions",
         header: " ",
         cell: (info) => (
-          <button 
+          <button
             onClick={() => handleViewStudent(info.row.original.id)}
             className="rounded border border-semantic-bg-border shadow-sm py-4px px-8px hover:bg-gray-50 font-[Inter-SemiBold] text-sm"
           >
@@ -314,12 +314,11 @@ const SupervisorTasks = ({ supervisorData }) => {
                 </p>
               </div>
             </div>
-            <button 
+            <button
               onClick={() => handleViewStudentsByStatus("normal progress", "Students who have not Submitted Book")}
               disabled={normalProgressCount === 0}
-              className={`text-xs font-[Roboto-Regular] text-primary-900 rounded-[3.33px] py-[3.33px] border border-secondary-600 ${
-                normalProgressCount === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:text-primary-700 bg-secondary-100'
-              }`}
+              className={`text-xs font-[Roboto-Regular] text-primary-900 rounded-[3.33px] py-[3.33px] border border-secondary-600 ${normalProgressCount === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:text-primary-700 bg-secondary-100'
+                }`}
             >
               View Students
             </button>
@@ -337,12 +336,11 @@ const SupervisorTasks = ({ supervisorData }) => {
                 </p>
               </div>
             </div>
-            <button 
+            <button
               onClick={() => handleViewStudentsByStatus("under examination", "Students who need to Resubmit")}
               disabled={underExaminationCount === 0}
-              className={`text-xs font-[Roboto-Regular] text-primary-900 rounded-[3.33px] py-[3.33px] border border-secondary-600 ${
-                underExaminationCount === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:text-primary-700 bg-secondary-100'
-              }`}
+              className={`text-xs font-[Roboto-Regular] text-primary-900 rounded-[3.33px] py-[3.33px] border border-secondary-600 ${underExaminationCount === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:text-primary-700 bg-secondary-100'
+                }`}
             >
               View Students
             </button>
@@ -360,12 +358,11 @@ const SupervisorTasks = ({ supervisorData }) => {
                 </p>
               </div>
             </div>
-            <button 
+            <button
               onClick={() => handleViewStudentsByStatus("book submitted", "Students Scheduled for Viva")}
               disabled={bookSubmittedCount === 0}
-              className={`text-xs font-[Roboto-Regular] text-primary-900 rounded-[3.33px] py-[3.33px] border border-secondary-600 ${
-                bookSubmittedCount === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:text-primary-700 bg-secondary-100'
-              }`}
+              className={`text-xs font-[Roboto-Regular] text-primary-900 rounded-[3.33px] py-[3.33px] border border-secondary-600 ${bookSubmittedCount === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:text-primary-700 bg-secondary-100'
+                }`}
             >
               View Students
             </button>
@@ -381,12 +378,11 @@ const SupervisorTasks = ({ supervisorData }) => {
                 </p>
               </div>
             </div>
-            <button 
+            <button
               onClick={() => handleViewStudentsByStatus("deferred", "Students with Deferred Proposal")}
               disabled={deferredCount === 0}
-              className={`text-xs font-[Roboto-Regular] text-primary-900 rounded-[3.33px] py-[3.33px] border border-secondary-600 ${
-                deferredCount === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:text-primary-700 bg-secondary-100'
-              }`}
+              className={`text-xs font-[Roboto-Regular] text-primary-900 rounded-[3.33px] py-[3.33px] border border-secondary-600 ${deferredCount === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:text-primary-700 bg-secondary-100'
+                }`}
             >
               View Students
             </button>
@@ -394,7 +390,7 @@ const SupervisorTasks = ({ supervisorData }) => {
         </div>
 
         {/* Progress Status Chart */}
-        <div className="col-span-4 bg-white rounded-lg shadow-sm relative "> 
+        <div className="col-span-4 bg-white rounded-lg shadow-sm relative ">
           <StudentProgressPieChart studentsData={studentsData} />
         </div>
       </div>
@@ -406,21 +402,19 @@ const SupervisorTasks = ({ supervisorData }) => {
           <nav className="-mb-px flex space-x-8" aria-label="Tabs">
             <button
               onClick={() => setActiveTab("assigned")}
-              className={` whitespace-nowrap py-4 px-1 border-b-2 font-[Roboto-Medium] text-sm ${
-                activeTab === "assigned"
+              className={` whitespace-nowrap py-4 px-1 border-b-2 font-[Roboto-Medium] text-sm ${activeTab === "assigned"
                   ? "text-primary-600 border-b-2 border-primary-600"
                   : "text-gray-500 hover:text-gray-700"
-              }`}
+                }`}
             >
               Students Assigned ({assignedCount})
             </button>
             <button
               onClick={() => setActiveTab("all")}
-              className={` whitespace-nowrap py-4 px-1 border-b-2 font-[Roboto-Medium] text-sm ${
-                activeTab === "all"
+              className={` whitespace-nowrap py-4 px-1 border-b-2 font-[Roboto-Medium] text-sm ${activeTab === "all"
                   ? "text-primary-600 border-b-2 border-primary-600"
                   : "text-gray-500 hover:text-gray-700"
-              }`}
+                }`}
             >
               All Students ({totalCount})
             </button>
@@ -522,44 +516,43 @@ const SupervisorTasks = ({ supervisorData }) => {
             <span className="font-[Roboto-Medium] mx-1">
               {Math.min(
                 (table.getState().pagination.pageIndex + 1) *
-                  table.getState().pagination.pageSize,
+                table.getState().pagination.pageSize,
                 table.getPrePaginationRowModel().rows.length
               )}
             </span>
             of{" "}
-              <span className="font-[Roboto-Medium] mx-1">
+            <span className="font-[Roboto-Medium] mx-1">
               {table.getPrePaginationRowModel().rows.length}
             </span>{" "}
             results
           </div>
           <div className="flex items-center gap-2">
-          <button
-          className="border border-gray-300 rounded p-1 font-[Roboto-Regular] text-sm disabled:opacity-50"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </button>
+            <button
+              className="border border-gray-300 rounded p-1 font-[Roboto-Regular] text-sm disabled:opacity-50"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Previous
+            </button>
             {Array.from({ length: table.getPageCount() }, (_, i) => i + 1).map(pageNumber => (
-          <button
-            key={pageNumber}
-            className={`w-8 h-8 rounded text-sm ${
-              pageNumber === table.getState().pagination.pageIndex + 1
-                ? 'bg-blue-50 text-blue-600 font-[Roboto-Medium]'
-                : 'text-gray-500'
-            }`}
-            onClick={() => table.setPageIndex(pageNumber - 1)}
-          >
-            {pageNumber}
-          </button>
-        ))}
-             <button
-          className="border border-gray-300 rounded p-1 font-[Roboto-Regular] text-sm disabled:opacity-50"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </button>
+              <button
+                key={pageNumber}
+                className={`w-8 h-8 rounded text-sm ${pageNumber === table.getState().pagination.pageIndex + 1
+                    ? 'bg-blue-50 text-blue-600 font-[Roboto-Medium]'
+                    : 'text-gray-500'
+                  }`}
+                onClick={() => table.setPageIndex(pageNumber - 1)}
+              >
+                {pageNumber}
+              </button>
+            ))}
+            <button
+              className="border border-gray-300 rounded p-1 font-[Roboto-Regular] text-sm disabled:opacity-50"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>
@@ -571,9 +564,9 @@ const SupervisorTasks = ({ supervisorData }) => {
         studentData={studentsData}
       />
 
-      <StudentListModal 
+      <StudentListModal
         isOpen={modalConfig.isOpen}
-        onClose={() => setModalConfig({...modalConfig, isOpen: false})}
+        onClose={() => setModalConfig({ ...modalConfig, isOpen: false })}
         students={modalConfig.students}
         title={modalConfig.title}
       />

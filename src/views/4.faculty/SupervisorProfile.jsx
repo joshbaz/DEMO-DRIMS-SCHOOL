@@ -10,44 +10,44 @@ import SupervisorAccountSettings from "./SupervisorAccountSettings";
 
 
 const SearchBar = ({ value, onChange, placeholder = "Search" }) => {
-    return (
-      <div className="relative">
-        <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-          <FiSearch className="h-4 w-4 text-gray-400" />
-        </div>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-          placeholder={placeholder}
-        />
+  return (
+    <div className="relative">
+      <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+        <FiSearch className="h-4 w-4 text-gray-400" />
       </div>
-    );
-  };
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+        placeholder={placeholder}
+      />
+    </div>
+  );
+};
 
-const SupervisorProfile = ( ) => {
-    const [searchQuery, setSearchQuery] = useState("");
-    const [activeTab, setActiveTab] = useState("tasks");
-    const navigate = useNavigate();
-    const { id } = useParams();
-  
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
-  
-    const { data: supervisorData, isLoading, error } = useGetSupervisor(id);
-  
-   
-  console.log(supervisorData);
+const SupervisorProfile = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("tasks");
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const { data: supervisorData, isLoading, error } = useGetSupervisor(id);
 
 
-       // If loading, show loading state
-   if (isLoading) {
+
+
+
+  // If loading, show loading state
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
-      <div className="text-lg font-semibold text-gray-600">Loading supervisor data...</div>
-    </div>
+        <div className="text-lg font-semibold text-gray-600">Loading supervisor data...</div>
+      </div>
     );
   }
 
@@ -95,17 +95,16 @@ const SupervisorProfile = ( ) => {
                 Back
               </button>
               <span className="text-lg font-medium text-gray-900">
-               {supervisorData?.supervisor?.title} {supervisorData?.supervisor?.name}
+                {supervisorData?.supervisor?.title} {supervisorData?.supervisor?.name}
               </span>
             </div>
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setActiveTab("tasks")}
                 className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-[Inter-Medium] gap-2 text-semantic-text-primary border-2
-                  ${
-                    activeTab === "tasks"
-                      ? "border-primary-500"
-                      : "border-semantic-border-inactive"
+                  ${activeTab === "tasks"
+                    ? "border-primary-500"
+                    : "border-semantic-border-inactive"
                   }`}
               >
                 <iconify-icon icon="material-symbols:browse-activity-sharp" width="22" height="22" className=" text-[#626263]"></iconify-icon>
@@ -114,10 +113,9 @@ const SupervisorProfile = ( ) => {
               <button
                 onClick={() => setActiveTab("settings")}
                 className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-[Inter-Medium] gap-2 text-semantic-text-primary border-2
-                  ${
-                    activeTab === "settings"
-                      ? "border-primary-500"
-                      : "border-semantic-border-inactive"
+                  ${activeTab === "settings"
+                    ? "border-primary-500"
+                    : "border-semantic-border-inactive"
                   }`}
               >
                 <iconify-icon icon="material-symbols-light:manufacturing-rounded" width="22" height="22" className=" text-[#626263]"></iconify-icon>

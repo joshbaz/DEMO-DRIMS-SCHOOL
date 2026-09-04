@@ -44,11 +44,10 @@ const StatsTableTab = ({ selectedTab, setSelectedTab }) => {
           <button
             key={tab}
             onClick={() => setSelectedTab(tab)}
-            className={`py-4 px-1 border-b-2 font-medium text-sm ${
-              selectedTab === tab
+            className={`py-4 px-1 border-b-2 font-medium text-sm ${selectedTab === tab
                 ? 'border-primary-500 text-primary-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            }`}
+              }`}
           >
             {tab}
           </button>
@@ -104,7 +103,7 @@ const TablePagination = ({ table }) => {
 const ExaminersTable = ({ data }) => {
   const [globalFilter, setGlobalFilter] = useState('');
   const columnHelper = createColumnHelper();
-  
+
   const columns = [
     columnHelper.accessor('name', {
       header: 'Name',
@@ -134,7 +133,7 @@ const ExaminersTable = ({ data }) => {
       cell: info => (
         <div>
           <div className="text-sm text-gray-900">{info.getValue()}</div>
-          
+
         </div>
       ),
     }),
@@ -147,7 +146,7 @@ const ExaminersTable = ({ data }) => {
       cell: info => {
         const books = info.getValue() || [];
         const examinerId = info.row.original?.id;
-        
+
         // Count total books assigned to this examiner
         const totalAssignments = books.reduce((count, book) => {
           const hasAssignment = book.examinerAssignments?.some(
@@ -155,26 +154,26 @@ const ExaminersTable = ({ data }) => {
           );
           return hasAssignment ? count + 1 : count;
         }, 0);
-        
+
         // Count pending assignments (no grade but is current)
         const pendingAssignments = books.reduce((count, book) => {
           const isPending = book.examinerAssignments?.some(
-            assignment => assignment.examinerId === examinerId && 
-                         !assignment.grade && 
-                         assignment.isCurrent
+            assignment => assignment.examinerId === examinerId &&
+              !assignment.grade &&
+              assignment.isCurrent
           );
           return isPending ? count + 1 : count;
         }, 0);
-        
+
         // Count completed assignments (has grade)
         const completedAssignments = books.reduce((count, book) => {
           const isCompleted = book.examinerAssignments?.some(
-            assignment => assignment.examinerId === examinerId && 
-                         assignment.grade
+            assignment => assignment.examinerId === examinerId &&
+              assignment.grade
           );
           return isCompleted ? count + 1 : count;
         }, 0);
-        
+
         return (
           <div className="space-y-1">
             <div className="flex items-center text-sm font-[Inter-Regular] justify-between">
@@ -213,7 +212,7 @@ const ExaminersTable = ({ data }) => {
     globalFilterFn: (row, columnId, filterValue) => {
       const safeValue = String(filterValue || '').toLowerCase();
       if (safeValue === '') return true;
-      
+
       // Search in all fields of the row
       const searchable = (value) => {
         if (value === null || value === undefined) return '';
@@ -223,7 +222,7 @@ const ExaminersTable = ({ data }) => {
         }
         return String(value).toLowerCase();
       };
-      
+
       // Check if any field in the row contains the filter value
       return Object.entries(row.original).some(([key, value]) => {
         return searchable(value).includes(safeValue);
@@ -242,7 +241,7 @@ const ExaminersTable = ({ data }) => {
   return (
     <div className="overflow-x-auto">
       <div className="p-4">
-        <SearchBar 
+        <SearchBar
           value={globalFilter || ''}
           onChange={value => table.setGlobalFilter(value)}
           placeholder="Search examiners..."
@@ -253,9 +252,9 @@ const ExaminersTable = ({ data }) => {
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => (
-                <th 
+                <th
                   key={header.id}
-                  scope="col" 
+                  scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
                   {flexRender(header.column.columnDef.header, header.getContext())}
@@ -283,10 +282,10 @@ const ExaminersTable = ({ data }) => {
 
 // Supervisors Table
 const SupervisorsTable = ({ data }) => {
-    
+
   const [globalFilter, setGlobalFilter] = useState('');
   const columnHelper = createColumnHelper();
-  
+
   const columns = [
     columnHelper.accessor('name', {
       header: 'Name',
@@ -320,19 +319,19 @@ const SupervisorsTable = ({ data }) => {
       header: 'Statistics',
       cell: info => {
         const students = info.getValue() || [];
-        
+
         // Count students with "Results Approved by Senate" status
-        const completedCount = students.filter(student => 
-          student.statuses?.some(status => 
+        const completedCount = students.filter(student =>
+          student.statuses?.some(status =>
             status.definition?.name === 'results approved by senate'
           )
         ).length || 0;
 
-        
-        
+
+
         // Count students without "Results Approved by Senate" status
         const inProgressCount = students.length - completedCount;
-        
+
         return (
           <div className="space-y-1">
             <div className="flex items-center text-sm font-[Inter-Regular] justify-between">
@@ -355,7 +354,7 @@ const SupervisorsTable = ({ data }) => {
         );
       },
     }),
- 
+
   ];
 
   const table = useReactTable({
@@ -375,7 +374,7 @@ const SupervisorsTable = ({ data }) => {
     globalFilterFn: (row, columnId, filterValue) => {
       const safeValue = String(filterValue || '').toLowerCase();
       if (safeValue === '') return true;
-      
+
       // Search in all fields of the row
       const searchable = (value) => {
         if (value === null || value === undefined) return '';
@@ -385,7 +384,7 @@ const SupervisorsTable = ({ data }) => {
         }
         return String(value).toLowerCase();
       };
-      
+
       // Check if any field in the row contains the filter value
       return Object.entries(row.original).some(([key, value]) => {
         return searchable(value).includes(safeValue);
@@ -404,7 +403,7 @@ const SupervisorsTable = ({ data }) => {
   return (
     <div className="overflow-x-auto">
       <div className="p-4">
-        <SearchBar 
+        <SearchBar
           value={globalFilter || ''}
           onChange={value => table.setGlobalFilter(value)}
           placeholder="Search supervisors..."
@@ -415,9 +414,9 @@ const SupervisorsTable = ({ data }) => {
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => (
-                <th 
+                <th
                   key={header.id}
-                  scope="col" 
+                  scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
                   {flexRender(header.column.columnDef.header, header.getContext())}
@@ -448,8 +447,8 @@ const ReviewersTable = ({ data }) => {
   const [globalFilter, setGlobalFilter] = useState('');
   const columnHelper = createColumnHelper();
 
-   console.log(data);
-  
+
+
   const columns = [
     columnHelper.accessor('name', {
       header: 'Name',
@@ -464,7 +463,7 @@ const ReviewersTable = ({ data }) => {
           </div>
           <div className="ml-4">
             <div className="text-sm font-medium text-gray-900">{info.getValue()}</div>
-            <div className="text-sm text-gray-500">{ 'Reviewer'}</div>
+            <div className="text-sm text-gray-500">{'Reviewer'}</div>
           </div>
         </div>
       ),
@@ -474,19 +473,19 @@ const ReviewersTable = ({ data }) => {
       header: 'Email',
       cell: info => <span className="text-sm text-gray-500">{info.getValue()}</span>,
     }),
-  
- 
+
+
     columnHelper.accessor('proposals', {
       header: 'Statistics',
       cell: info => {
         const proposals = info.getValue() || [];
-        const pendingReviews = proposals.filter(p => 
+        const pendingReviews = proposals.filter(p =>
           p.statuses?.some(s => s.definition?.name === 'proposal in review' && s.isCurrent)
         ).length || 0;
-        const completedReviews = proposals.filter(p => 
-          p.statuses?.some(s => s.definition?.name === 'proposal review finished' )
+        const completedReviews = proposals.filter(p =>
+          p.statuses?.some(s => s.definition?.name === 'proposal review finished')
         ).length || 0;
-        
+
         return (
           <div className="space-y-1">
             <div className="flex items-center justify-between">
@@ -505,7 +504,7 @@ const ReviewersTable = ({ data }) => {
         );
       },
     }),
- 
+
   ];
 
   const table = useReactTable({
@@ -525,7 +524,7 @@ const ReviewersTable = ({ data }) => {
     globalFilterFn: (row, columnId, filterValue) => {
       const safeValue = String(filterValue || '').toLowerCase();
       if (safeValue === '') return true;
-      
+
       // Search in all fields of the row
       const searchable = (value) => {
         if (value === null || value === undefined) return '';
@@ -535,7 +534,7 @@ const ReviewersTable = ({ data }) => {
         }
         return String(value).toLowerCase();
       };
-      
+
       // Check if any field in the row contains the filter value
       return Object.entries(row.original).some(([key, value]) => {
         return searchable(value).includes(safeValue);
@@ -554,7 +553,7 @@ const ReviewersTable = ({ data }) => {
   return (
     <div className="overflow-x-auto">
       <div className="p-4">
-        <SearchBar 
+        <SearchBar
           value={globalFilter || ''}
           onChange={value => table.setGlobalFilter(value)}
           placeholder="Search reviewers..."
@@ -565,9 +564,9 @@ const ReviewersTable = ({ data }) => {
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => (
-                <th 
+                <th
                   key={header.id}
-                  scope="col" 
+                  scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
                   {flexRender(header.column.columnDef.header, header.getContext())}
@@ -639,9 +638,8 @@ const ModifyTableDialog = ({ isOpen, onClose, columnVisibility, setColumnVisibil
               <div key={columnId} className="flex items-center">
                 <button
                   onClick={() => handleToggleColumn(columnId)}
-                  className={`flex items-center justify-center w-4 h-4 rounded p-[2.5px] ${
-                    isVisible ? "bg-accent2-600" : "bg-gray-200"
-                  }`}
+                  className={`flex items-center justify-center w-4 h-4 rounded p-[2.5px] ${isVisible ? "bg-accent2-600" : "bg-gray-200"
+                    }`}
                 >
                   {isVisible && (
                     <Minus className="w-3 h-3 text-white font-bold" />
@@ -651,8 +649,8 @@ const ModifyTableDialog = ({ isOpen, onClose, columnVisibility, setColumnVisibil
                   {columnId === "name"
                     ? "Name"
                     : columnId === "email"
-                    ? "Email"
-                    : columnId.charAt(0).toUpperCase() + columnId.slice(1)}
+                      ? "Email"
+                      : columnId.charAt(0).toUpperCase() + columnId.slice(1)}
                 </span>
               </div>
             ))}
@@ -739,30 +737,30 @@ const FacultyStatsManagement = () => {
       <div className="px-6 pb-6">
         <div className="bg-white rounded-lg shadow-sm">
           {/* Tabs */}
-          <StatsTableTab 
+          <StatsTableTab
             selectedTab={selectedTab}
             setSelectedTab={setSelectedTab}
           />
 
           {/* Render the appropriate table based on selected tab */}
           {selectedTab === 'Examiners' && (
-            <ExaminersTable 
-              data={examinersData?.examiners} 
+            <ExaminersTable
+              data={examinersData?.examiners}
               books={examinersData?.books}
               globalFilter={globalFilter}
             />
           )}
-          
+
           {selectedTab === 'Supervisors' && (
-            <SupervisorsTable 
-              data={supervisorsData?.supervisors} 
+            <SupervisorsTable
+              data={supervisorsData?.supervisors}
               globalFilter={globalFilter}
             />
           )}
-          
+
           {selectedTab === 'Reviewers' && (
-            <ReviewersTable 
-              data={reviewersData?.reviewers} 
+            <ReviewersTable
+              data={reviewersData?.reviewers}
               globalFilter={globalFilter}
             />
           )}

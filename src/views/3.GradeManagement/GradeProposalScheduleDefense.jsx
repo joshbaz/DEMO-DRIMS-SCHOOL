@@ -64,10 +64,10 @@ const GradeProposalScheduleDefense = () => {
     useGetProposal(proposalId);
 
   //fetch chairpersons
-  const {data: chairpersonData, isLoading:chairpersonLoading} = useGetChairpersons()
+  const { data: chairpersonData, isLoading: chairpersonLoading } = useGetChairpersons()
 
   // Fetch external persons
-  const { data: externalPersonsData, isLoading: externalPersonsLoading } = 
+  const { data: externalPersonsData, isLoading: externalPersonsLoading } =
     useGetExternalPersons();
 
   // Fetch available panelists
@@ -99,7 +99,7 @@ const GradeProposalScheduleDefense = () => {
         const reviewer = reviewersData.reviewers.find(r => r.id === reviewerId.id);
         return reviewer || null;
       }).filter(Boolean);
-      
+
       setSelectedReviewers(existingReviewers);
     }
   }, [proposalData?.proposal, reviewersData]);
@@ -159,10 +159,10 @@ const GradeProposalScheduleDefense = () => {
     }),
     onSuccess: () => {
       setSuccess("Defense scheduled successfully");
-      queryClient.resetQueries({queryKey: ["proposalDefenses"]})
-      queryClient.invalidateQueries({queryKey: ["proposalDefenses"]})
+      queryClient.resetQueries({ queryKey: ["proposalDefenses"] })
+      queryClient.invalidateQueries({ queryKey: ["proposalDefenses"] })
       setTimeout(() => {
-        navigate(-1, {replace: true });
+        navigate(-1, { replace: true });
       }, 2000);
     },
     onError: (err) => {
@@ -171,7 +171,7 @@ const GradeProposalScheduleDefense = () => {
     }
   });
 
-  
+
 
   const handleScheduleDefense = () => {
     if (!validateForm()) return;
@@ -298,9 +298,8 @@ const GradeProposalScheduleDefense = () => {
                     <Button
                       variant="outline"
                       role="combobox"
-                      className={`w-full justify-start text-left font-normal ${
-                        formErrors.defenseDate ? "border-red-500" : ""
-                      }`}
+                      className={`w-full justify-start text-left font-normal ${formErrors.defenseDate ? "border-red-500" : ""
+                        }`}
                     >
                       {defenseDate ? (
                         format(defenseDate, "PPP")
@@ -309,8 +308,8 @@ const GradeProposalScheduleDefense = () => {
                       )}
                     </Button>
                   </DialogTrigger>
-                  <DialogContent 
-                    className="w-auto p-4" 
+                  <DialogContent
+                    className="w-auto p-4"
                     style={{ position: 'absolute', zIndex: 9999 }}
                   >
                     <DialogHeader>
@@ -331,32 +330,32 @@ const GradeProposalScheduleDefense = () => {
                       />
                       <div className="flex justify-end mt-4">
                         <DialogTrigger>
-                        <Button
-                          variant="outline"
-                          onClick={() => {
-                            setDefenseDate(null);
-                            document.querySelector('[role="dialog"]').close();
-                          }}
-                          className="mr-2 border-1 border-red-500 text-red-600"
-                        >
-                          Cancel
-                        </Button>
-                        </DialogTrigger>
-                    
-                    <DialogTrigger>
-                    <Button
-                    className="bg-primary-500 hover:bg-primary-400"
-                          onClick={() => {
-                            if (defenseDate) {
-                              setFormErrors(prev => ({ ...prev, defenseDate: undefined }));
+                          <Button
+                            variant="outline"
+                            onClick={() => {
+                              setDefenseDate(null);
                               document.querySelector('[role="dialog"]').close();
-                            }
-                          }}
-                        >
-                          Confirm
-                        </Button>
-                    </DialogTrigger>
-                       
+                            }}
+                            className="mr-2 border-1 border-red-500 text-red-600"
+                          >
+                            Cancel
+                          </Button>
+                        </DialogTrigger>
+
+                        <DialogTrigger>
+                          <Button
+                            className="bg-primary-500 hover:bg-primary-400"
+                            onClick={() => {
+                              if (defenseDate) {
+                                setFormErrors(prev => ({ ...prev, defenseDate: undefined }));
+                                document.querySelector('[role="dialog"]').close();
+                              }
+                            }}
+                          >
+                            Confirm
+                          </Button>
+                        </DialogTrigger>
+
                       </div>
                     </div>
                   </DialogContent>
@@ -375,9 +374,8 @@ const GradeProposalScheduleDefense = () => {
                 <Input
                   id="defense-time"
                   type="time"
-                  className={`${
-                    formErrors.defenseTime ? "border-red-500" : ""
-                  }`}
+                  className={`${formErrors.defenseTime ? "border-red-500" : ""
+                    }`}
                   value={defenseTime}
                   onChange={(e) => setDefenseTime(e.target.value)}
                   style={{ fontSize: '1.00em' }} // Enlarge the default icon
@@ -436,9 +434,9 @@ const GradeProposalScheduleDefense = () => {
                       <p className="font-medium">
                         Current Chairperson: {chairpersonData.chairpersons.find(c => c.id === chairperson)?.name}
                       </p>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
+                      <Button
+                        variant="outline"
+                        size="sm"
                         className="text-red-500 border-red-500 hover:bg-red-50"
                         onClick={() => setChairperson("")}
                       >
@@ -478,9 +476,9 @@ const GradeProposalScheduleDefense = () => {
                       <p className="font-medium">
                         Current Minutes Secretary: {externalPersonsData.externalPersons.find(s => s.id === minutesSecretary)?.name}
                       </p>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
+                      <Button
+                        variant="outline"
+                        size="sm"
                         className="text-red-500 border-red-500 hover:bg-red-50"
                         onClick={() => setMinutesSecretary("")}
                       >
@@ -532,10 +530,10 @@ const GradeProposalScheduleDefense = () => {
                           </div>
                           <Button
                             variant="ghost"
-                             className="text-red-500 border-1 border-red-500 hover:bg-red-50 hover:border-red-500"
+                            className="text-red-500 border-1 border-red-500 hover:bg-red-50 hover:border-red-500"
                             onClick={() => handleRemovePanelist(panelist.id)}
                           >
-                           Remove
+                            Remove
                           </Button>
                         </li>
                       ))}
@@ -588,7 +586,7 @@ const GradeProposalScheduleDefense = () => {
                             className="text-red-500 border-1 border-red-500 hover:bg-red-50 hover:border-red-500"
                             onClick={() => handleRemoveReviewer(reviewer.id)}
                           >
-                           Remove
+                            Remove
                           </Button>
                         </li>
                       ))}
@@ -609,7 +607,7 @@ const GradeProposalScheduleDefense = () => {
               </Button>
 
               <div className="space-x-4">
-                <Button onClick={handleScheduleDefense} disabled={scheduleDefenseMutation?.isPending ? true : false }>
+                <Button onClick={handleScheduleDefense} disabled={scheduleDefenseMutation?.isPending ? true : false}>
                   {scheduleDefenseMutation?.isPending ? "Scheduling..." : "Schedule Defense"}
                 </Button>
               </div>
@@ -661,7 +659,7 @@ const GradeProposalScheduleDefense = () => {
   );
 };
 
-const AddPersonDialog = ({ 
+const AddPersonDialog = ({
   type, // 'panelist', 'reviewer', 'chairperson', 'minutesSecretary'
   onSelect,
   availablePeople,
@@ -743,7 +741,7 @@ const AddPersonDialog = ({
   });
 
   const createExternalPersonMutation = useMutation({
-    mutationFn: (values) =>  createExternalPersonService(values.name, values.email, values.role),
+    mutationFn: (values) => createExternalPersonService(values.name, values.email, values.role),
     onSuccess: (data) => {
       onCreateSuccess(data.externalPerson);
       setNewPerson({ name: "", email: "", institution: "" });
@@ -759,7 +757,7 @@ const AddPersonDialog = ({
   const getAvailablePeople = () => {
     if (type === 'panelist') {
       const staffMembers = staffMembersData?.staffMembers || [];
-      
+
       // Get all staff members (both convertible and already panelists)
       const allStaffMembers = staffMembers.map(staff => ({
         ...staff,
@@ -779,7 +777,7 @@ const AddPersonDialog = ({
       return allStaffMembers;
     } else if (type === 'reviewer') {
       const staffMembers = staffMembersData?.staffMembers || [];
-      
+
       // Get all staff members (both convertible and already reviewers)
       const allStaffMembers = staffMembers.map(staff => ({
         ...staff,
@@ -802,10 +800,10 @@ const AddPersonDialog = ({
   };
 
   const filteredPeople = getAvailablePeople().filter(
-    (p) => 
+    (p) =>
       !selectedPeople.some((sp) => sp.id === p.id) &&
       (p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-       p.email.toLowerCase().includes(searchQuery.toLowerCase()))
+        p.email.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   const handleStaffMemberSelect = (staffMember) => {
@@ -815,7 +813,7 @@ const AddPersonDialog = ({
 
   const handleConversionConfirm = () => {
     if (!selectedStaffMember) return;
-    
+
     setConversionLoading(true);
     if (type === 'panelist') {
       createPanelistFromStaffMutation.mutate(selectedStaffMember.id);
@@ -852,9 +850,9 @@ const AddPersonDialog = ({
     }
   };
 
-  const isLoading = 
-    addPanelistMutation.isPending || 
-    createChairpersonMutation.isPending || 
+  const isLoading =
+    addPanelistMutation.isPending ||
+    createChairpersonMutation.isPending ||
     createExternalPersonMutation.isPending;
 
   return (
@@ -862,18 +860,18 @@ const AddPersonDialog = ({
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <div className="w-full flex justify-end">
-          <Button variant="outline" className="w-full bg-primary-500 text-white max-w-max">
-            <Plus className="w-4 h-4 mr-2" />
-            Add {type.charAt(0).toUpperCase() + type.slice(1)}
-          </Button>
+            <Button variant="outline" className="w-full bg-primary-500 text-white max-w-max">
+              <Plus className="w-4 h-4 mr-2" />
+              Add {type.charAt(0).toUpperCase() + type.slice(1)}
+            </Button>
           </div>
-        
+
         </DialogTrigger>
         <DialogContent className="sm:max-w-[800px] max-h-[90vh]">
           <DialogHeader>
             <DialogTitle>Add {type.charAt(0).toUpperCase() + type.slice(1)}</DialogTitle>
           </DialogHeader>
-          
+
           <Tabs defaultValue="search" className="w-full">
             <TabsList className="grid w-full grid-cols-2 ">
               <TabsTrigger value="search" className="data-[state=active]:border-gray-300">Search</TabsTrigger>
@@ -970,15 +968,15 @@ const AddPersonDialog = ({
                             )}
                           </div>
                         </div>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
+                        <Button
+                          variant="ghost"
+                          size="sm"
                           className="border border-primary-500 text-primary-600 hover:bg-primary-50 hover:text-primary-700"
                         >
-                          {person.isStaffMember && !person.isAlreadyPanelist && type === 'panelist' ? 'Convert' : 
-                           person.isStaffMember && !person.isAlreadyReviewer && type === 'reviewer' ? 'Convert' :
-                           person.isStaffMember && person.isAlreadyPanelist && type === 'panelist' ? 'Add Panelist' : 
-                           person.isStaffMember && person.isAlreadyReviewer && type === 'reviewer' ? 'Add Reviewer' : 'Add'}
+                          {person.isStaffMember && !person.isAlreadyPanelist && type === 'panelist' ? 'Convert' :
+                            person.isStaffMember && !person.isAlreadyReviewer && type === 'reviewer' ? 'Convert' :
+                              person.isStaffMember && person.isAlreadyPanelist && type === 'panelist' ? 'Add Panelist' :
+                                person.isStaffMember && person.isAlreadyReviewer && type === 'reviewer' ? 'Add Reviewer' : 'Add'}
                         </Button>
                       </div>
                     ))}
@@ -990,9 +988,9 @@ const AddPersonDialog = ({
             <TabsContent value="create" className="space-y-4">
               {type === 'panelist' || type === 'reviewer' ? (
                 <div className="max-h-[60vh] overflow-y-auto pr-2">
-                  <AddStaffMember 
+                  <AddStaffMember
                     onSuccess={(newStaffMember) => {
-                      console.log('AddStaffMember onSuccess called with:', newStaffMember);
+
                       // Staff member created successfully - no automatic conversion
                       toast.success('Staff member created successfully');
                       // Close the dialog
@@ -1036,8 +1034,8 @@ const AddPersonDialog = ({
                     </div>
                   )}
                   {error && <p className="text-red-500 text-sm">{error}</p>}
-                  <Button 
-                    onClick={handleCreate} 
+                  <Button
+                    onClick={handleCreate}
                     className="w-full"
                     disabled={isLoading}
                   >
@@ -1059,7 +1057,7 @@ const AddPersonDialog = ({
               <span>Convert Staff Member to {type === 'panelist' ? 'Panelist' : 'Reviewer'}</span>
             </DialogTitle>
           </DialogHeader>
-          
+
           {selectedStaffMember && (
             <div className="space-y-4">
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -1090,7 +1088,7 @@ const AddPersonDialog = ({
                   </div>
                 </div>
               </div>
-              
+
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <div className="flex items-start space-x-3">
                   <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
@@ -1107,7 +1105,7 @@ const AddPersonDialog = ({
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex justify-end space-x-3">
                 <Button
                   variant="outline"
